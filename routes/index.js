@@ -9,8 +9,9 @@ function Models( orm ) {
             res.json({ ok: true, status: "سلامت و سرافراز" });
         },
         create: function(req,res){
+            var ip =
             orm.VView.create({
-                ip: req.ip,
+                ip: getClientAddress( req ),
                 clientTime: req.body.clientTime,
                 position: req.body.position,
                 isFlash: req.body.isFlash,
@@ -25,5 +26,10 @@ function Models( orm ) {
         }
     };
 }
+
+var getClientAddress = function (req) {
+    return (req.headers['x-forwarded-for'] || '').split(',')[0]
+        || req.connection.remoteAddress;
+};
 
 module.exports = Models;
