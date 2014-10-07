@@ -30,7 +30,7 @@
 
 DESC="Aban PPC"
 NAME="OVP Analytics"
-DIR="./"
+DIR="/var/www/html/vanalytics/node_modules/vanayltics"
 SCRIPT_NAME="server"
 SCRIPT_FILE="server.js"
 ALL_SCRIPT="daemon all"
@@ -169,7 +169,7 @@ case "$1" in
                 RETVAL=1
             fi
         fi
-        exit
+        exit $RETVAL
 	;;
     stop)
 	if running ; then
