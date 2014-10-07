@@ -1,7 +1,7 @@
 {
   "name": "vanalytics",
   "author": "Behrad <behradz@gmail.com>",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Video Analytics Script",
   "dependencies": {
     "body-parser": "^1.9.0",
@@ -10,11 +10,11 @@
     "mysql": "^2.5.1",
     "sequelize": "^2.0.0-rc1"
   },
-    "scripts": {
-        "postinstall": "npm install -g forever",
-        "start": "forever server.js"
-    },
-    "bin": {
-        "vanalytics": "./bin/vanalytics"
-    }
+  "scripts": {
+    "postinstall": "npm install -g forever",
+    "start": "forever server.js"
+  },
+  "bin": {
+    "vanalytics": "./bin/vanalytics"
+  }
 }
