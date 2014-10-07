@@ -26,12 +26,18 @@ function OVPAnalytics( videoId ) {
                     file: item.sources[0].file,
                     type: item.sources[0].type,
                     quality: jwp.getCurrentQuality(),
-                    vUUID: self.uuid
+                    uuid: self.uuid
                 };
-                $.post('/analytics/vview', data, $.noop, 'json').done(function () {
-                    console.log("Damet Garm");
-                }).fail(function () {
-                    console.error("View-e Mara Log namikoni ...kash!???");
+                $.ajax({
+                    type: "POST",
+                    url: '/analytics/vview',
+                    data: JSON.stringify( data ),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){console.log("Damet Garm");},
+                    failure: function(errMsg) {
+                        console.error("View-e Mara Log namikoni ...kash!???");
+                    }
                 });
             }
         });
@@ -43,6 +49,10 @@ function OVPAnalytics( videoId ) {
 // var analytics = new OVPAnalytics( "123456" )
 // logOnViewedPercent( 15 ) // if you need extra view point logs
 // analytics.bindToJwp( jwp );
+
+
+// var analytics = new OVPAnalytics( "123456" )
+// analytics.bindToJwp( jwplayer( "player" ) );
 
 
 
