@@ -3,8 +3,15 @@ module.exports = {
 
     username: "aban" || process.env.QMERY_MYSQL_DB_USERNAME,
     password: "aban" || process.env.QMERY_MYSQL_DB_PASSWORD,
-    database: "test" || process.env.QMERY_APP_NAME,
-    host    : "172.16.35.102" || process.env.QMERY_MYSQL_DB_HOST,
+    database: "vanalytics" || process.env.QMERY_APP_NAME,
+    host    : "127.0.0.1" || process.env.QMERY_MYSQL_DB_HOST,
     port    : 3306 || process.env.QMERY_MYSQL_DB_PORT,
-    forceSchema: false
+    forceSchema: false,
+
+    mongo: {
+        host: "185.49.84.58",
+        username: "rlogUser",
+        password: "rlogPass",
+        db: "syslog"
+    }
 };

@@ -3,7 +3,7 @@
  */
 function OVPAnalytics( videoId ) {
     this.uuid = videoId;
-    this.savePoints = { 0: false, 20: false, 40: false, 60: false, 80: false, 100: false };
+    this.savePoints = { 0: false, 15: false, 30: false, 45: false, 60: false, 75: false, 90: false, 100: false };
 
     this.logOnViewedPercent = function( num ) {
         this.savePoints[ num ] = false;
@@ -12,11 +12,12 @@ function OVPAnalytics( videoId ) {
     this.bindToJwp = function( jwp ) {
         var self = this;
         jwp.onTime( function( progress ) {
+            var bufferPercent = jwp.getBuffer();
             var posPercent = Math.round((progress.position / progress.duration) * 100);
             if (self.savePoints[ posPercent ] !== undefined && self.savePoints[ posPercent ] === false) {
                 var item = jwp.getPlaylistItem();
 
-                console.log("time ", Math.floor(posPercent), item.title);
+//                console.log("time ", Math.floor(posPercent), item.title);
 
                 self.savePoints[ posPercent ] = true;
                 var data = {
@@ -34,7 +35,9 @@ function OVPAnalytics( videoId ) {
                     data: JSON.stringify( data ),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function(data){console.log("Damet Garm");},
+                    success: function(data){
+                        console.log("Damet Garm");
+                    },
                     failure: function(errMsg) {
                         console.error("View-e Mara Log namikoni ...kash!???");
                     }

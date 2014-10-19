@@ -19,6 +19,14 @@ var router = express.Router();
 var routes = require('./routes')(db);
 router.get('/', routes.index);
 router.post('/vview', routes.create);
+
+router.get('/trafficDaily/:file', routes.trafficByPath);
+router.get('/viewsPosly/:file', routes.viewsByPosition);
+router.get('/viewsPosly/:file/:startDate..:endDate', routes.viewsByPosition);
+router.get('/viewsDaily/:file', routes.viewsByPath);
+router.get('/viewsDaily/:file/:startDate..:endDate', routes.viewsByPath);
+
+
 app.use( '/analytics', router );
 app.set('json spaces', 20);
 
