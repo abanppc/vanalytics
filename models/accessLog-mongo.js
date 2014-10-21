@@ -25,17 +25,20 @@ module.exports = AccessLog = mongoose.model('AccessLog', flatSchema);
 ////    process.exit();
 //});
 
-module.exports.findByPath = function( path, cb ) {
+module.exports.findByPath = function( params, cb ) {
     var MongoClient = require('mongodb').MongoClient;
     MongoClient.connect('mongodb://'+config.mongo.username+':'+config.mongo.password+'@'+config.mongo.host+'/'+config.mongo.db, function(err, db) {
         var collection = db.collection('date_access_log_mimetype');
-        collection.find({
-            "_id.request": path
-//            "_id.request": "/013b3b97-9f8e-4a55-b45e-febaa056dfae_300.mp4",
-//        "_id.year": {'$gt':"2014", '$lte':"2014"},
-//        "_id.month": {'$gt':"08", '$lte':"09"},
-//        "_id.day": {'$gt':"1", '$lte':"31"}
-        },{'limit':2000}).toArray(function(err, docs) {
+        var filter = {
+            "uuid": params.uuid
+        };
+        if( params.startDate && params.endDate ) {
+            filter["timestamp"] = {
+                '$gte':Number(new Date(params.startDate).getTime()),
+                '$lte':Number(new Date(params.endDate).getTime())
+            };
+        }
+        collection.find( filter,{'limit':2000}).toArray(function(err, docs) {
             cb && cb( err, docs );
 //            console.log( "################## ", docs || err );
 //            process.exit();
