@@ -1,9 +1,8 @@
 {
   "name": "vanalytics",
   "author": "Behrad <behradz@gmail.com>",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Video Analytics Script",
-
   "dependencies": {
     "body-parser": "^1.9.0",
     "express": "^4.9.5",
