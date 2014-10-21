@@ -13,21 +13,22 @@ app.set('port', config.server_port);
 app.use(bodyParser.json());
 
 // set middleware
-app.use(express.static(__dirname + '/public'));
+app.use(express.static( __dirname + '/public' ));
 
 var router = express.Router();
 var routes = require('./routes')(db);
 router.get('/', routes.index);
 router.post('/vview', routes.create);
 
-router.get('/trafficDaily/:file', routes.trafficByPath);
-router.get('/viewsPosly/:file', routes.viewsByPosition);
-router.get('/viewsPosly/:file/:startDate..:endDate', routes.viewsByPosition);
-router.get('/viewsDaily/:file', routes.viewsByPath);
-router.get('/viewsDaily/:file/:startDate..:endDate', routes.viewsByPath);
+router.get('/trafficDaily/:uuid', routes.trafficByPath);
+router.get('/trafficDaily/:uuid/:startDate..:endDate', routes.trafficByPath);
+router.get('/viewsPosly/:uuid', routes.viewsByPosition);
+router.get('/viewsPosly/:uuid/:startDate..:endDate', routes.viewsByPosition);
+router.get('/viewsDaily/:uuid', routes.viewsByPath);
+router.get('/viewsDaily/:uuid/:startDate..:endDate', routes.viewsByPath);
 
 
-app.use( '/analytics', router );
+app.use( config.app_path, router );
 app.set('json spaces', 20);
 
 if( cluster.isMaster ) {

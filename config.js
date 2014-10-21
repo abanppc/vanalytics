@@ -1,17 +1,19 @@
 module.exports = {
-    server_port: 3000,
 
-    username: "aban" || process.env.QMERY_MYSQL_DB_USERNAME,
-    password: "aban" || process.env.QMERY_MYSQL_DB_PASSWORD,
-    database: "vanalytics" || process.env.QMERY_APP_NAME,
-    host    : "127.0.0.1" || process.env.QMERY_MYSQL_DB_HOST,
-    port    : 3306 || process.env.QMERY_MYSQL_DB_PORT,
+    server_port: process.env.VANALYTICS_PORT || 3000,
+    app_path: process.env.VANALYTICS_PATH || '/analytics',
+
+    host    : process.env.VANALYTICS_MYSQL_DB_HOST || "127.0.0.1",
+    database: process.env.VANALYTICS_MYSQL_DB || "vanalytics",
+    username: process.env.VANALYTICS_MYSQL_DB_USERNAME || "aban",
+    password: process.env.VANALYTICS_MYSQL_DB_PASSWORD || "aban",
+    port    : process.env.VANALYTICS_MYSQL_DB_PORT || 3306,
     forceSchema: false,
 
     mongo: {
-        host: "185.49.84.58",
-        username: "rlogUser",
-        password: "rlogPass",
-        db: "syslog"
+        host: process.env.VANALYTICS_MONGO_HOST || "79.175.174.20",
+        username: process.env.VANALYTICS_MONGO_USER || "rlogUser",
+        password: process.env.VANALYTICS_MONGO_PASS || "rlogPass",
+        db: process.env.VANALYTICS_MONGO_DB || "syslog"
     }
 };

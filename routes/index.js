@@ -25,7 +25,12 @@ function Models( orm ) {
         },
         viewsByPosition: function(req,res) {
             console.log( "Query params %o \n========================================== ", req.params );
-            var filter = { file: req.params.file };
+            var filter = {};
+            if( req.params.file ) {
+                filter.file = req.params.file;
+            } else if ( req.params.uuid ) {
+                filter.uuid = req.params.uuid;
+            }
             if( req.params.startDate || req.params.endDate ) {
                 filter.createdAt = { between: [req.params.startDate, req.params.endDate] }
             }
@@ -39,7 +44,7 @@ function Models( orm ) {
         },
         trafficByPath: function(req,res) {
             var accessLog = require( '../models/accessLog-mongo' );
-            accessLog.findByPath( req.params.file, function(err, list){
+            accessLog.findByPath( req.params, function(err, list){
                 return res.json( {ok: true, results: list } );
             });
         },
@@ -47,7 +52,12 @@ function Models( orm ) {
             console.log( "===========================================================\n" +
                             "Query params %j and string %j \n" +
                         "===========================================================", req.params, req.query );
-            var filter = { file: req.params.file, position: 0 };
+            var filter = { position: 0 };
+            if( req.params.file ) {
+                filter.file = req.params.file;
+            } else if ( req.params.uuid ) {
+                filter.uuid = req.params.uuid;
+            }
             if( req.params.startDate || req.params.endDate ) {
                 filter.createdAt = { between: [req.params.startDate, req.params.endDate] }
             }
