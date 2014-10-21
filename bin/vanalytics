@@ -30,7 +30,7 @@
 
 DESC="Aban PPC"
 NAME="OVP Analytics"
-DIR="/var/www/html/vanalytics/node_modules/vanayltics"
+DIR=$(dirname "$(dirname "$(readlink -f "$0")")")
 SCRIPT_NAME="server"
 SCRIPT_FILE="server.js"
 ALL_SCRIPT="daemon all"
