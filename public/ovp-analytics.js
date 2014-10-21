@@ -2,6 +2,7 @@
  * Created by behrad on 10/7/14.
  */
 function OVPAnalytics( videoId ) {
+
     this.uuid = videoId;
     this.savePoints = { 0: false, 15: false, 30: false, 45: false, 60: false, 75: false, 90: false, 100: false };
 
@@ -36,7 +37,7 @@ function OVPAnalytics( videoId ) {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function(data){
-                        console.log("Damet Garm");
+//                        console.log("Damet Garm");
                     },
                     failure: function(errMsg) {
                         console.error("View-e Mara Log namikoni ...kash!???");
@@ -49,14 +50,7 @@ function OVPAnalytics( videoId ) {
 
 // Your USAGE: please embed this file in your web app
 // and include lines below in your PHP:
-// var analytics = new OVPAnalytics( "123456" )
-// logOnViewedPercent( 15 ) // if you need extra view point logs
-// analytics.bindToJwp( jwp );
 
-
-// var analytics = new OVPAnalytics( "123456" )
+// var analytics = new OVPAnalytics( "123456" );
+// analytics.logOnViewedPercent( 15 ) // if you need extra view point logs
 // analytics.bindToJwp( jwplayer( "player" ) );
-
-
-
-// my own test bed: http://jsfiddle.net/nF7Mw/1228/
