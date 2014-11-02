@@ -2,9 +2,8 @@
 var OvpClient = (function (jwplayer) {
   var ovp = {};
 
-  var private_key = 'bXor8ewgaa9gAPsjv80k5vrEiUdEhvLoJGFdPw==';
-//  var private_key = 'wikak502aidDDLWo5Swl4M2CcvSvkncE4uRmdsalL5M';
-  var debug_no_check = true;
+  var private_key = 'wikak502aidDDLWo5Swl4M2CcvSvkncE4uRmdsalL5M';
+  var debug_no_check = false;
 
   ovp.setup = function() {
     if( !debug_no_check ) {
@@ -61,8 +60,13 @@ var OvpClient = (function (jwplayer) {
     (options.logo) && (ovp.player.logo = options.logo);
     ovp.player.plugins = ovp.player.plugins || {};
     if( options.overlay ) {
-      ovp.setTextOverlay(options.overlay.content, options.overlay.className, options.overlay.style );
+      ovp.setTextOverlay( options.overlay.content, options.overlay.className, options.overlay.style );
     }
+
+//    revive adserver tag url
+
+//    http://adserver.abanppc.com/adserver/www/delivery/fc.php?script=bannerTypeHtml:vastInlineBannerTypeHtml:vastInlineHtml&zones=pre-roll0-0%3D20&nz=1&source=&r=R0.023106331005692482&block=1&format=vast&charset=UTF-8
+
 //    setup();
   };
 
