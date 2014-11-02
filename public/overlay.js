@@ -3,11 +3,12 @@
   var overlay = function( player, config, div ) {
 
     var setupOverlay = function() {
-        div.innerHTML = config.text;
+      div.innerHTML = config.text;
+      div.className = config.className + " ovp_jwp6_overlay";
+      config.style && setStyle( config.style );
     };
 
     var showOverlay = function() {
-        console.log( "show ", player, config, div );
       setStyle({
         opacity: 1
       });
@@ -28,15 +29,10 @@
     // Matches our text container to the size of the player instance
     this.resize = function( width, height ) {
       setStyle({
-        position: 'absolute',
-//        top: '90%',
+        /*position: 'absolute',
         margin: '0',
-        padding: '10px 15px 10px',
-        background: 'rgba( 0, 0, 0, .7 )',
-        color: 'white',
-        fontSize: '12px',
-        width: '90%'
-//        width: '100%'
+        width: '90%',
+        padding: '10px 15px 10px'*/
       });
     };
 

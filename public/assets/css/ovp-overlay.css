@@ -1,0 +1,9 @@
+.jwplayer div.ovp_jwp6_overlay {
+    background: rgba( 0, 0, 0, .7 );
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    margin: 0;
+    width: 90%;
+    padding: 10px 15px 10px;
+}

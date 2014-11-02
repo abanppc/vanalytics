@@ -1,9 +1,10 @@
 /**
  * Created by behrad on 10/7/14.
  */
-function OVPAnalytics( videoId ) {
+function OVPAnalytics( videoId, postUrl ) {
 
     this.uuid = videoId;
+    this.postUrl = postUrl || '/analytics/vview';
     this.savePoints = { 0: false, 15: false, 30: false, 45: false, 60: false, 75: false, 90: false, 100: false };
 
     this.logOnViewedPercent = function( num ) {
@@ -13,27 +14,25 @@ function OVPAnalytics( videoId ) {
     this.bindToJwp = function( jwp ) {
         var self = this;
         jwp.onTime( function( progress ) {
-            var bufferPercent = jwp.getBuffer();
             var posPercent = Math.round((progress.position / progress.duration) * 100);
+            var duration = progress.position;
             if (self.savePoints[ posPercent ] !== undefined && self.savePoints[ posPercent ] === false) {
                 var item = jwp.getPlaylistItem();
-
-//                console.log("time ", Math.floor(posPercent), item.title);
-
                 self.savePoints[ posPercent ] = true;
                 var data = {
                     clientTime: new Date(),
                     position: posPercent,
+                    duration: duration,
                     isFlash: jwp.getRenderingMode() == "flash",
-                    file: item.sources[0].file,
+                    file: item.sources[0].file, //TODO currentPlayListItem should be used instead
                     type: item.sources[0].type,
                     quality: jwp.getCurrentQuality(),
                     uuid: self.uuid
                 };
                 $.ajax({
                     type: "POST",
-                    url: '/analytics/vview',
-                    data: JSON.stringify( data ),
+                    url: self.postUrl,
+                    data: JSON.stringify( data ), //TODO refactore to browser compatible post json
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function(data){

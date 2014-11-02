@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
         ip: DataTypes.STRING,
         clientTime: DataTypes.DATE,
         position: DataTypes.INTEGER,
+        duration: DataTypes.INTEGER,
+        countryCode: DataTypes.STRING,
+        city: DataTypes.STRING,
+        region: DataTypes.STRING,
         quality: DataTypes.STRING,
         isFlash: DataTypes.BOOLEAN
 
