@@ -2,7 +2,7 @@ var couchapp = require('couchapp')
     , path = require('path');
 
 ddoc = {
-  _id: '_design/traffic'
+  _id: '_design/usage'
   , views: {}
   , lists: {}
   , shows: {}
@@ -10,9 +10,15 @@ ddoc = {
 
 module.exports = ddoc;
 
-ddoc.views.byUser = {
-  map: require( './byUser').map,
-  reduce: require( './byUser').reduce
+ddoc.views.byUUID = {
+  map: require( './byUUID').map,
+  reduce: require( './byUUID').reduce
+};
+
+
+ddoc.views.byIP = {
+  map: require( './byIP').map,
+  reduce: require( './byIP').reduce
 };
 
 couchapp.loadAttachments(ddoc, path.join(__dirname, '_attachments'));

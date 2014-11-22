@@ -14,6 +14,7 @@ module.exports = {
     host    : process.env.VANALYTICS_COUCH_HOST || "127.0.0.1",
     port    : process.env.VANALYTICS_COUCH_HOST || 5984,
     db      : process.env.VANALYTICS_COUCH_DB || "vanalytics",
+    usage_db: process.env.VANALYTICS_COUCH_DB || "syslog",
     username: process.env.VANALYTICS_COUCH_USER || "admin",
     password: process.env.VANALYTICS_COUCH_PASS || "admin"
   },

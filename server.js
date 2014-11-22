@@ -16,18 +16,31 @@ app.use(bodyParser.json());
 app.use(express.static( __dirname + '/public' ));
 
 var router = express.Router();
-var routes = require('./routes')(db);
+var routes = require('./routes')({});
 router.get('/', routes.index);
 router.post('/vview', routes.create);
 
-router.get('/trafficDaily/:uuid', routes.trafficByPath);
-router.get('/trafficDaily/:uuid/:startDate..:endDate', routes.trafficByPath);
 
-router.get('/viewsPosly/:uuid', routes.viewsByPosition);
-router.get('/viewsPosly/:uuid/:startDate..:endDate', routes.viewsByPosition);
 
-router.get('/viewsDaily/:uuid', routes.viewsByPath);
-router.get('/viewsDaily/:uuid/:startDate..:endDate', routes.viewsByPath);
+router.get('/trafficIp/:ip', routes.trafficByIp);
+router.get('/trafficIp/:ip/:startDate..:endDate', routes.trafficByIp);
+
+router.get('/traffic/:uuid', routes.trafficByUUID);
+router.get('/traffic/:uuid/:startDate..:endDate', routes.trafficByUUID);
+
+router.get('/views/:uuid/:userid', routes.viewsByPosition);
+router.get('/views/:uuid/:userid/:startDate..:endDate', routes.viewsByPosition);
+
+router.get('/watches/:uuid/:userid', routes.watchesByUser);
+router.get('/watches/:uuid/:userid/:startDate..:endDate', routes.watchesByUser);
+
+router.get('/watches/:uuid', routes.watchesByUUID);
+router.get('/watches/:uuid/:startDate..:endDate', routes.watchesByUUID);
+
+router.get('/prp/:uuid', routes.prpByUUID);
+router.get('/prp/:uuid/:startDate..:endDate', routes.prpByUUID);
+
+
 
 
 app.use( config.app_path, router );

@@ -6,6 +6,7 @@ function Models(orm) {
 
   var config = require( '../config.js' );
   var db = require('nano')( 'http://'+config.couchdb.host+':'+config.couchdb.port + '/' + config.couchdb.db );
+  var usage_db = require('nano')( 'http://'+config.couchdb.host+':'+config.couchdb.port + '/' + config.couchdb.usage_db );
 
 
   return {
@@ -47,15 +48,16 @@ function Models(orm) {
         filter.file = req.params.file;
       } else if (req.params.uuid) {
         filter.uuid = req.params.uuid;
+        filter.userid = req.params.userid;
       }
       if (req.params.startDate || req.params.endDate) {
         filter.createdAt = { between: [req.params.startDate, req.params.endDate] };
       }
-      db.view('traffic', 'byUUID', {
+      db.view('traffic', 'byUser', {
         reduce: true,
         group_level: 2,
-        startkey: [filter.uuid],
-        endkey: [filter.uuid, {}]
+        startkey: [filter.uuid, filter.userid ],
+        endkey: [filter.uuid, filter.userid, {}]
       }, function(err, body) {
         console.log( body || err );
         if (!err) {
@@ -80,7 +82,7 @@ function Models(orm) {
     //select avg(p) from (select MAX(position) as p,uuid,ip from VViews where uuid="uuid" group by uuid, ip) as test;
 
 
-    viewsByPath: function (req, res) {
+    prpByUUID: function (req, res) {
       console.log("===========================================================\n" +
           "Query params %j and string %j \n" +
           "===========================================================", req.params, req.query);
@@ -104,16 +106,79 @@ function Models(orm) {
       }).then(function (views) {
         return res.json({ok: true, results: views });
       });*/
-      return res.json({ok: true, results: "" });
+      return res.json({ok: true, results: "not implemented yet" });
     },
 
+    watchesByUser: function(req, res) {
+      db.view('watches', 'byUser', {
+        reduce: true,
+        group_level: 4,
+        startkey: [req.params.uuid,req.params.userid],
+        endkey: [req.params.uuid, req.params.userid, {}]
+      }, function(err, body) {
+        console.log( body || err );
+        if (!err) {
+          body.rows.forEach(function(doc) {
+          });
+          return res.json({ok: true, results: body.rows });
+        }
+        return res.json({error: true, message: err });
+      });
+    },
 
-    trafficByPath: function (req, res) {
+    watchesByUUID: function(req, res) {
+      db.view('watches', 'byUUID', {
+        reduce: true,
+        group_level: 4,
+        startkey: [req.params.uuid],
+        endkey: [req.params.uuid, {}]
+      }, function(err, body) {
+        console.log( body || err );
+        if (!err) {
+          body.rows.forEach(function(doc) {
+          });
+          return res.json({ok: true, results: body.rows });
+        }
+        return res.json({error: true, message: err });
+      });
+    },
+
+    trafficByUUID: function (req, res) {
       /*var accessLog = require('../models/accessLog-mongo');
       accessLog.findByPath(req.params, function (err, list) {
         return res.json({ok: true, results: list });
       });*/
-      return res.json({ok: true, message: "not implemented yet" });
+      usage_db.view('usage', 'byUUID', {
+        reduce: true,
+        group_level: 4,
+        startkey: [req.params.uuid],
+        endkey: [req.params.uuid, {}]
+      }, function(err, body) {
+        console.log( body || err );
+        if (!err) {
+          body.rows.forEach(function(doc) {
+          });
+          return res.json({ok: true, results: body.rows });
+        }
+        return res.json({error: true, message: err });
+      });
+    },
+
+    trafficByIp: function(req, res) {
+      usage_db.view('usage', 'byIP', {
+        reduce: true,
+        group_level: 4,
+        startkey: [req.params.ip],
+        endkey: [req.params.ip, {}]
+      }, function(err, body) {
+        console.log( body || err );
+        if (!err) {
+          body.rows.forEach(function(doc) {
+          });
+          return res.json({ok: true, results: body.rows });
+        }
+        return res.json({error: true, message: err });
+      });
     }
   };
 }
