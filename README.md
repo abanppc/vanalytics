@@ -1,7 +1,9 @@
 # Video Client & Analytics Server #
   
   Simple video player client (based on JWPlayer) with a configurable analytics server in node.js
-   
+
+## Pre Install ##
+  install Apache CouchDB
    
 ## Install ##
 
@@ -10,6 +12,12 @@
 ## Configuration ##
 
   Check [config file](config.js) 
+
+
+## Upload Views to CouchDB ##
+
+    ./pushapp
+    
 
 ## Run ##
 from the installation directory run

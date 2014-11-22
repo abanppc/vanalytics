@@ -1,3 +1,4 @@
 #!/bin/sh
-couchapp push vanaviews/traffic/app.js http://admin:admin@localhost:5984/vanalytics
-couchapp push vanaviews/watches/app.js http://admin:admin@localhost:5984/vanalytics
+node_modules/.bin/couchapp push vanaviews/traffic/app.js http://admin:admin@localhost:5984/vanalytics
+node_modules/.bin/couchapp push vanaviews/watches/app.js http://admin:admin@localhost:5984/vanalytics
+node_modules/.bin/couchapp push vanaviews/usage/app.js http://admin:admin@localhost:5984/syslog
