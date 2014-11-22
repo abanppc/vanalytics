@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 var config = require( '../config');
 
-mongoose.connect('mongodb://rlogUser:rlogPass@185.49.84.58/syslog');
+//mongoose.connect('mongodb://rlogUser:rlogPass@185.49.84.58/syslog');
 
 var flatSchema = new Schema({
     _id: {

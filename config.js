@@ -10,6 +10,14 @@ module.exports = {
   port    : process.env.VANALYTICS_MYSQL_DB_PORT || 3306,
   forceSchema: false,
 
+  couchdb: {
+    host    : process.env.VANALYTICS_COUCH_HOST || "127.0.0.1",
+    port    : process.env.VANALYTICS_COUCH_HOST || 5984,
+    db      : process.env.VANALYTICS_COUCH_DB || "vanalytics",
+    username: process.env.VANALYTICS_COUCH_USER || "admin",
+    password: process.env.VANALYTICS_COUCH_PASS || "admin"
+  },
+
   mongo: {
     host    : process.env.VANALYTICS_MONGO_HOST || "79.175.174.20",
     db      : process.env.VANALYTICS_MONGO_DB || "syslog",

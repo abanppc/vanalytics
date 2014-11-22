@@ -2,7 +2,8 @@
 var OvpClient = (function (jwplayer) {
   var ovp = {};
 
-  var private_key = 'wikak502aidDDLWo5Swl4M2CcvSvkncE4uRmdsalL5M';
+  var private_key = 'bXor8ewgaa9gAPsjv80k5vrEiUdEhvLoJGFdPw==';
+//  var private_key = 'wikak502aidDDLWo5Swl4M2CcvSvkncE4uRmdsalL5M';
   var debug_no_check = false;
 
   ovp.setup = function() {
@@ -11,7 +12,7 @@ var OvpClient = (function (jwplayer) {
     }
     console.log( "Building JWP with ", ovp.player );
     var instance = jwplayer( ovp.elementId ).setup( ovp.player );
-    var analytics = new OVPAnalytics( ovp.uuid, ovp.analytics.postUrl );
+    var analytics = new OVPAnalytics( ovp.userId, ovp.sessionId, ovp.uuid, ovp.analytics.postUrl );
     analytics.bindToJwp( instance );
   };
 
@@ -41,12 +42,14 @@ var OvpClient = (function (jwplayer) {
     };
   };
 
-  var init = function( options ) {
+  var init = function( userId, sessionId, uuid, options ) {
     options = options || {};
     ovp.analytics = options.analytics;
     ovp.key = options.key || private_key;
     ovp.elementId = options.elementId || 'player';
-    ovp.uuid = options.uuid;
+    ovp.uuid = uuid;
+    ovp.userId = userId;
+    ovp.sessionId = sessionId;
     ovp.player = options.player || {
       height: '100%',
       width: '100%',
@@ -54,7 +57,7 @@ var OvpClient = (function (jwplayer) {
       aboutlink: "http://abanppc.com"
     };
     ovp.player.playlist = ovp.player.playlist || [{}];
-    (options.image) && (ovp.player.playlist[0].image = options.image);
+    (options.thumbnail) && (ovp.player.playlist[0].image = options.thumbnail);
     (options.height) && (ovp.player.height = options.height);
     (options.width) && (ovp.player.width = options.width);
     (options.logo) && (ovp.player.logo = options.logo);
@@ -62,19 +65,14 @@ var OvpClient = (function (jwplayer) {
     if( options.overlay ) {
       ovp.setTextOverlay( options.overlay.content, options.overlay.className, options.overlay.style );
     }
-
-//    revive adserver tag url
-
-//    http://adserver.abanppc.com/adserver/www/delivery/fc.php?script=bannerTypeHtml:vastInlineBannerTypeHtml:vastInlineHtml&zones=pre-roll0-0%3D20&nz=1&source=&r=R0.023106331005692482&block=1&format=vast&charset=UTF-8
-
 //    setup();
   };
 
-  return function( uuid, options ){
+  return function( userId, sessionId, uuid, options ){
     if( !debug_no_check && jwplayer === undefined ) {
       throw new Error( "jwplayer not found, please add it's javascript files" )
     }
-    init(options);
+    init(userId, sessionId, uuid, options);
     return ovp;
   };
 }(jwplayer));

@@ -7,6 +7,8 @@ module.exports = function(sequelize, DataTypes) {
     return sequelize.define("VView", {
 
         uuid: DataTypes.STRING,
+        userId: DataTypes.STRING,
+        sessionId: DataTypes.STRING,
         file: DataTypes.STRING,
         ip: DataTypes.STRING,
         clientTime: DataTypes.DATE,
