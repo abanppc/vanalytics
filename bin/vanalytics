@@ -34,9 +34,9 @@ DIR=$(dirname "$(dirname "$(readlink -f "$0")")")
 SCRIPT_NAME="server"
 SCRIPT_FILE="server.js"
 ALL_SCRIPT="daemon all"
-FOREVER_DIR="/var/run/forever"
-LOGDIR=/var/log
-LOCKFILE=`basename $0 .sh`
+FOREVER_DIR="${DIR}/bin/run/forever"
+LOGDIR="${DIR}/bin/run/logs"
+LOCKFILE=${DIR/bin/run/`basename $0 .sh`
 export NODE_ENV=${NODE_ENV:="production"}
 
 
@@ -161,7 +161,7 @@ case "$1" in
             if running ; then
                 # It's ok, the server started and is running
                 log "$DESC $NAME started"
-                touch /var/lock/subsys/$LOCKFILE
+                touch $LOCKFILE
                 RETVAL=0
             else
                 # It is not running after we did start
@@ -176,7 +176,7 @@ case "$1" in
             # Only stop the server if we see it running
             action "Stopping $DESC $NAME" stop_server
             RETVAL=$?
-	    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$LOCKFILE
+	    [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
 	else
             # If it's not running don't do anything
             log "$DESC $NAME not running"
