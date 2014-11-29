@@ -1,4 +1,9 @@
 #!/bin/sh
-node_modules/.bin/couchapp push vanaviews/traffic/app.js http://admin:admin@localhost:5984/vanalytics
-node_modules/.bin/couchapp push vanaviews/watches/app.js http://admin:admin@localhost:5984/vanalytics
-node_modules/.bin/couchapp push vanaviews/usage/app.js http://admin:admin@localhost:5984/syslog
+
+user=${1-admin}
+pass=${2-admin}
+host=${3-localhost}
+
+node_modules/.bin/couchapp push vanaviews/traffic/app.js http://$user:$pass@$host:5984/vanalytics
+node_modules/.bin/couchapp push vanaviews/watches/app.js http://$user:$pass@$host:5984/vanalytics
+node_modules/.bin/couchapp push vanaviews/usage/app.js http://$user:$pass@$host:5984/access_log

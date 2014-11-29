@@ -87,14 +87,39 @@ function Models(orm) {
           "Query params %j and string %j \n" +
           "===========================================================", req.params, req.query);
       var filter = { position: 0 };
-      if (req.params.file) {
-        filter.file = req.params.file;
-      } else if (req.params.uuid) {
+      if (req.params.uuid) {
         filter.uuid = req.params.uuid;
       }
       if (req.params.startDate || req.params.endDate) {
         filter.createdAt = { between: [req.params.startDate, req.params.endDate] }
       }
+      db.view('traffic', 'byUser', {
+        reduce: true,
+        group_level: 2,
+        startkey: [filter.uuid ],
+        endkey: [filter.uuid, {}]
+      }, function(err, body) {
+        if (!err) {
+          var plays = {};
+          var replays = {};
+          // TODO reduce traffic/byUser with group_level=2 and aggregate on users
+          // TODO to collect total plays, total replays :)
+          body.rows.forEach(function(row) {
+            for( var p in row.value ) {
+              plays[p] = plays[p] || 0;
+              plays[p]++;
+              if( row.value[p] > 1 ) {
+                replays[p] = replays[p] || 0;
+                replays[p] += row.value[p] - 1;
+              }
+            }
+          });
+          return res.json({ok: true, results: [{ plays: plays, replays: replays }] });
+          //return res.json({ok: true, results: body.rows });
+        }
+        return res.json({error: true, message: err });
+      });
+
       /*orm.VView.findAndCountAll({
         attributes: [
           [orm.Sequelize.fn('count', orm.Sequelize.col('*')), 'count'],
@@ -106,7 +131,6 @@ function Models(orm) {
       }).then(function (views) {
         return res.json({ok: true, results: views });
       });*/
-      return res.json({ok: true, results: "not implemented yet" });
     },
 
     watchesByUser: function(req, res) {

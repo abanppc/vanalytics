@@ -3,20 +3,26 @@
   Simple video player client (based on JWPlayer) with a configurable analytics server in node.js
 
 ## Pre Install ##
-  install Apache CouchDB
+  install Apache CouchDB, [see installation guide](https://github.com/abanppc/sysCouchLog/wiki/Installing-on-CentOS-7)
    
 ## Install ##
 
     npm install vanalytics
 
+
+## Post Install ##
+
+  Optionally configure your reverse proxy (e.g. nginx) to the proxy_pass to your node.js server
+
+
 ## Configuration ##
 
-  Check [config file](config.js) 
+  Update [config file](config.js)
 
 
 ## Upload Views to CouchDB ##
 
-    ./pushapp
+    ./pushapp couchdb_user couchdb_pass couchdb_host[=localhost]
     
 
 ## Run ##
@@ -105,7 +111,56 @@ You can also create an init script:
     ```json
     {
       "ok": true,
-      "results": "not implemented yet"
+      "results": [{
+        "plays": {
+          "1": 1,
+          "2": 1,
+          "3": 2,
+          "4": 2,
+          "5": 2,
+          "6": 2,
+          "7": 2,
+          "8": 2,
+          "9": 2,
+          "10": 2,
+          "11": 2,
+          "12": 2,
+          "13": 2,
+          "14": 2,
+          "15": 2,
+          "16": 2,
+          "17": 2,
+          "18": 2,
+          "19": 2,
+          "20": 2,
+          "21": 2,
+          "22": 2,
+          "23": 2,
+          "24": 2,
+          "25": 2,
+          "26": 1,
+          "27": 1,
+          "28": 1,
+          "29": 1,
+          "30": 1,
+          "31": 1,
+          "32": 1,
+          "33": 1,
+          "34": 1,
+          "35": 1,
+          "36": 1,
+          "37": 1,
+          "38": 1,
+          "39": 1,
+          "40": 1
+        },
+        "replays": {
+          "27": 1,
+          "28": 1,
+          "29": 1,
+          "30": 1
+        }
+      }]
     }
     ```
 
@@ -153,12 +208,12 @@ You can also create an init script:
 
 
 
-### ip location services ###
+### Extra: IP location services references ###
 
-  https://github.com/rs/node-netmask
+  [netmask](https://github.com/rs/node-netmask)
   
-  http://www.telize.com/geoip?callback=?%22
+  [geoip](http://www.telize.com/geoip?callback=?%22)
   
-  http://freegeoip.net/
+  [freegeoip](http://freegeoip.net/)
   
-  http://services.ce3c.be/ciprg/?countrys=IRAN+%28ISLAMIC+REPUBLIC+OF%29%2C&format=shareaza&format2=Country+%3A%3A+%7Bcountry%7D%0D%0AStart+IP+of+range+%3A%3A+%7Bstartip%7D%0D%0AEnd+IP+of+range+%3A%3A+%7Bendip%7D%0D%0ANetmask+%3A%3A+%7Bnetmask%7D%0D%0A
+  [sample service](http://services.ce3c.be/ciprg/?countrys=IRAN+%28ISLAMIC+REPUBLIC+OF%29%2C&format=shareaza&format2=Country+%3A%3A+%7Bcountry%7D%0D%0AStart+IP+of+range+%3A%3A+%7Bstartip%7D%0D%0AEnd+IP+of+range+%3A%3A+%7Bendip%7D%0D%0ANetmask+%3A%3A+%7Bnetmask%7D%0D%0A)
