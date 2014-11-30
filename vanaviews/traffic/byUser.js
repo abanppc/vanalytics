@@ -11,13 +11,14 @@ module.exports.map = function (doc) {
 module.exports.reduce = function (key, values, rereduce) {
   var result = {};
   if (!rereduce) {
-    for (var j = 0; j < values.length; j++)
+    for (var j = 0; j < values.length; j++) {
       for (var i = values[j][0]; i <= values[j][1]; i++) {
         result[i] = result[i] || 0;
         result[i] += 1;
       }
+    }
   } else {
-    for (var k in values) {
+    for (var key in values) {
       result[key] = result[key] || 0;
       result[key] += values[key];
     }
