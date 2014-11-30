@@ -34,7 +34,14 @@ Create a CouchDB database named *vanalytics* using [your futon console](http://1
 ## Upload Views to CouchDB ##
 
     ./pushapp couchdb_user couchdb_pass couchdb_host[=localhost] syslog_db_name vanalytics_db_name
-    
+
+
+add view updater to the couchdb server's crontab:
+
+    */10 * * * * curl http://127.0.0.1:5984/vanalytics/_design/traffic/_view/byUser?limit=0&stale=update_after
+    */10 * * * * curl http://127.0.0.1:5984/vanalytics/_design/watches/_view/byUser?limit=0&stale=update_after
+    */10 * * * * curl http://127.0.0.1:5984/access_log/_design/usage/_view/byUUID?limit=0&stale=update_after
+
 
 ## Run ##
 
