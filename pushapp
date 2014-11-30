@@ -3,7 +3,9 @@
 user=${1-admin}
 pass=${2-admin}
 host=${3-localhost}
+access_log_db=${4-access_log}
+vanalytics_db=${5-vanalytics}
 
-node_modules/.bin/couchapp push vanaviews/traffic/app.js http://$user:$pass@$host:5984/vanalytics
-node_modules/.bin/couchapp push vanaviews/watches/app.js http://$user:$pass@$host:5984/vanalytics
-node_modules/.bin/couchapp push vanaviews/usage/app.js http://$user:$pass@$host:5984/access_log
+node_modules/.bin/couchapp push vanaviews/traffic/app.js http://$user:$pass@$host:5984/$vanalytics_db
+node_modules/.bin/couchapp push vanaviews/watches/app.js http://$user:$pass@$host:5984/$vanalytics_db
+node_modules/.bin/couchapp push vanaviews/usage/app.js http://$user:$pass@$host:5984/$access_log_db

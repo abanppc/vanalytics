@@ -4,14 +4,14 @@
   "version": "0.3.3",
   "description": "Video Analytics Script",
   "dependencies": {
-    "body-parser": "^1.9.0",
     "express": "^4.9.5",
+    "body-parser": "^1.9.0",
     "couchapp": "^0.11.0",
     "nano": "^6.0.1"
   },
   "scripts": {
     "postinstall": "sudo npm install -g forever",
-    "start": "forever server.js"
+    "start": "forever start server.js"
   },
   "bin": {
     "vanalytics": "./bin/vanalytics"

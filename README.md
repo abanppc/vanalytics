@@ -14,17 +14,26 @@
 
 ## Post Install ##
 
-  Optionally configure your reverse proxy (e.g. nginx) to the proxy_pass to your node.js server
+  Optionally configure your reverse proxy (e.g. nginx) to proxy_pass to your node.js server
 
 
 ## Configuration ##
 
-  Update [config file](config.js)
+  Update [config file](config.js) or set the following environment variables in your bash_profile
+
+    export VANALYTICS_COUCH_HOST=localhost
+    export VANALYTICS_COUCH_USER=admin
+    export VANALYTICS_COUCH_PASS=admin
+    export VANALYTICS_COUCH_DB=vanalytics
+    export VANALYTICS_COUCH_DB_USAGE=access_log
+
+
+Create a CouchDB database named *vanalytics* using [your futon console](http://127.0.0.1:5984/_utils)
 
 
 ## Upload Views to CouchDB ##
 
-    ./pushapp couchdb_user couchdb_pass couchdb_host[=localhost]
+    ./pushapp couchdb_user couchdb_pass couchdb_host[=localhost] syslog_db_name vanalytics_db_name
     
 
 ## Run ##
