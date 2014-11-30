@@ -15,4 +15,4 @@ ddoc.views.byUser = {
   reduce: require( './byUser').reduce
 };
 
-couchapp.loadAttachments(ddoc, path.join(__dirname, '_attachments'));
+//couchapp.loadAttachments(ddoc, path.join(__dirname, '_attachments'));

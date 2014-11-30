@@ -21,4 +21,4 @@ ddoc.views.byIP = {
   reduce: require( './byIP').reduce
 };
 
-couchapp.loadAttachments(ddoc, path.join(__dirname, '_attachments'));
+//couchapp.loadAttachments(ddoc, path.join(__dirname, '_attachments'));
