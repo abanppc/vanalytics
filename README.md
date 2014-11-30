@@ -7,7 +7,9 @@
    
 ## Install ##
 
-    npm install vanalytics
+    git clone https://github.com/abanppc/vanalytics.git
+    cd vanalytics
+    npm install .
 
 
 ## Post Install ##
@@ -26,14 +28,10 @@
     
 
 ## Run ##
+
 from the installation directory run
     
-    ./node_modules/.bin/vanalytics start
-    
-    
-You can also create an init script:
-    
-    ln -s ./node_modules/.bin/vanalytics /etc/init.d/vanalytics
+    npm start
     
 
 ### Sample reports ###
