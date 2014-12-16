@@ -1,10 +1,19 @@
-# Video Client & Analytics Server #
+# Video Client
   
-  Simple video player client (based on JWPlayer) with a configurable analytics server in node.js
+  A Simple video player client (based on JWPlayer), [sample usage](https://github.com/abanppc/vanalytics/wiki/ovpClientUsage)
+
+
+# Analytics Server #
+
+  A simple, configurable analytics server in node.js
+
 
 ## Pre Install ##
-  install Apache CouchDB, [see installation guide](https://github.com/abanppc/sysCouchLog/wiki/Installing-on-CentOS-7)
-   
+
+  You will need node.js, npm, a git client and for sure:
+  Apache CouchDB, [see installation guide](https://github.com/abanppc/sysCouchLog/wiki/Installing-on-CentOS-7)
+
+
 ## Install ##
 
     git clone https://github.com/abanppc/vanalytics.git
