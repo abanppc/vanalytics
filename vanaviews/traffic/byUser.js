@@ -19,8 +19,10 @@ module.exports.reduce = function (key, values, rereduce) {
     }
   } else {
     for (var key in values) {
-      result[key] = result[key] || 0;
-      result[key] += values[key];
+      for (var i in values[key]) {
+        result[i] = result[i] || 0;
+        result[i] += values[key][i];
+      }
     }
   }
   return result;

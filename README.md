@@ -21,7 +21,7 @@
     npm install .
 
 
-## Post Install ##
+## Post Install (Optional) ##
 
   Optionally configure your reverse proxy (e.g. nginx) to proxy_pass to your node.js server
 
@@ -37,7 +37,7 @@
     export VANALYTICS_COUCH_DB_USAGE=access_log
 
 
-Create a CouchDB database named *vanalytics* using [your futon console](http://127.0.0.1:5984/_utils)
+Create two CouchDB databases named *vanalytics* and *access_log* using [your futon console](http://127.0.0.1:5984/_utils)
 
 
 ## Upload Views to CouchDB ##
