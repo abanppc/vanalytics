@@ -9,6 +9,7 @@ function OVPAnalytics( userId, sessionId, videoId, postUrl ) {
     this.sessionId = sessionId;
     this.postUrl = postUrl || '/analytics/vview';
     this.watched = {};
+    this.recentSavedPoint = null;
     this.savePoints = { 0: false, 2: false, 20: false, 40: false, 60: false, 80: false, 100: false };
 
     this.logOnViewedPercent = function( num ) {
@@ -27,8 +28,8 @@ function OVPAnalytics( userId, sessionId, videoId, postUrl ) {
       if( !this.isEmpty( this.watched ) ) {
         var min = Math.min.apply( Math, Object.keys( this.watched ) );
         var max = Math.max.apply( Math, Object.keys( this.watched ) );
-        console.log( "AJAX %s -> %s", min+1, max );
-        this.submitWatchPeriod( jwp, min+1, max );
+        console.log( "AJAX %s -> %s", min, max, this.watched );
+        this.submitWatchPeriod( jwp, min, max );
       }
       this.watched = {};
     };
@@ -56,7 +57,7 @@ function OVPAnalytics( userId, sessionId, videoId, postUrl ) {
       $.ajax({
         type: "POST",
         url: this.postUrl,
-        data: JSON.stringify( data ), //TODO refactore to browser compatible post json
+        data: JSON.stringify( data ), //TODO refactor to browser compatible post json
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function(data){},
@@ -73,12 +74,12 @@ function OVPAnalytics( userId, sessionId, videoId, postUrl ) {
           var posPercent = Math.round((progress.position / progress.duration) * 100);
           self.watched[posPercent] = posPercent;
           self.totalDuration = progress.duration;
-          if (self.savePoints[ posPercent ] !== undefined && self.savePoints[ posPercent ] === false) {
-            self.savePoints[ posPercent ] = true;
+          if (self.savePoints[ posPercent ] !== undefined && self.savePoints[ posPercent ] === false && posPercent !== self.recentSavedPoint ) {
             if( posPercent === 0 ) {
               self.submit( jwp, { startWatch: true } );
             }
             self.closeWatch( jwp );
+            self.recentSavedPoint = posPercent;
           }
         });
 
@@ -97,7 +98,7 @@ function OVPAnalytics( userId, sessionId, videoId, postUrl ) {
         });
 
         jwp.onComplete( function( data ){
-          //console.log( "================== COMPLETE " );
+          self.watched = {};
         });
 
       $(window).on("beforeunload", function() {

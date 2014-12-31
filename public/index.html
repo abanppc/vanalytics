@@ -78,12 +78,16 @@
 
         player: {
             debug: {
-                "levels": "fatal, config, vast_template"
+//                "levels": "fatal, config, vast_template"
             },
             /*advertising: {
                 client: 'vast',
                 tag: 'http://adserver.abanppc.com/adserver/www/delivery/fc.php'
             },*/
+            sharing: {
+              code: encodeURI("<iframe src='http://example.com/embed/MEDIAID.html' />"),
+              link: "http://example.com/page/MEDIAID/"
+            },
             plugins: {
 
             },
@@ -106,7 +110,6 @@
     video.addTrack( "/assets/caption-fa.vtt", "Farsi", true/*is default*/ );
 
     video.setTextOverlay('<b>From Aban Guys :)</b>', 'myPrettyClass', {
-        'color': 'green',
         'font-size': '16px'
     });
 
