@@ -1,5 +1,5 @@
 module.exports.map = function (doc) {
-  if (doc.watchStart && doc.watchEnd) {
+  if (doc.watchStart !== undefined && doc.watchEnd !== undefined) {
     var d = new Date(doc.createdAt);
     emit(
         [doc.uuid, doc.userId, d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes()],
