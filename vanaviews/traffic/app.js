@@ -3,6 +3,7 @@ var couchapp = require('couchapp')
 
 ddoc = {
   _id: '_design/traffic'
+  , language: 'javascript'
   , views: {}
   , lists: {}
   , shows: {}
