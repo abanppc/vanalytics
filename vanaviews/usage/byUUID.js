@@ -1,11 +1,20 @@
 module.exports.map = function (doc) {
+  var filename = 'unknown';
   if( doc.request ) {
-    var url = doc.request.match( /\/(.*)\.(mp4|webm|flv)/i );
-    //var url = doc.request.match( /.*\s\/(.+)\s.*/ );
-    if ( url && url.length == 3 ) {
+    //var url = doc.request.match( /\/(.*)\.(mp4|webm|flv|ts)/i );
+    var url = doc.request.match( /\/([^/]+)\.ts\sHTTP/i );
+    if( url.length == 2 ) {
+      filename = url[1].replace( /-[^-]+$/, '' ).replace( /-[^-]+$/, '' );
+    } else { // not a ts file
+      url = doc.request.match( /\/([^/]+)\..+\sHTTP/i );
+      if( url.length == 2) {
+        filename = url[1].replace( /-[^-]+$/, '' );
+      }
+    }
+    if ( filename && filename.length == 3 ) {
       var d = new Date( doc.timestamp );
       emit(
-        [ url[1], d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes() ],
+        [ filename, d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes() ],
         Math.round( Number(doc.body_bytes_sent)/1024 )
       );
     }
