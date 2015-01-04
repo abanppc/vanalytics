@@ -17,11 +17,11 @@ module.exports = {
 
   couchdb: {
     host    : process.env.VANALYTICS_COUCH_HOST || "127.0.0.1",
-    port    : process.env.VANALYTICS_COUCH_HOST || 5984,
+    port    : process.env.VANALYTICS_COUCH_PORT || 5984,
     db      : process.env.VANALYTICS_COUCH_DB || "vanalytics", // database which video player client logs will be pushed to
     usage_db: process.env.VANALYTICS_COUCH_DB_USAGE || "access_log", // database which syslog access logs will be pushed to
-    username: process.env.VANALYTICS_COUCH_USER || "admin",
-    password: process.env.VANALYTICS_COUCH_PASS || "admin"
+    username: process.env.VANALYTICS_COUCH_USER || "aban",
+    password: process.env.VANALYTICS_COUCH_PASS || "aban"
   },
 
   mongo: {

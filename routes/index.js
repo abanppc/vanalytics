@@ -50,14 +50,12 @@ function Models(orm) {
         filter.uuid = req.params.uuid;
         filter.userid = req.params.userid;
       }
-      if (req.params.startDate || req.params.endDate) {
-        filter.createdAt = { between: [req.params.startDate, req.params.endDate] };
-      }
+      var keys = parseDates( [filter.uuid, filter.userid], req.params );
       db.view('traffic', 'byUser', {
         reduce: true,
         group_level: 2,
-        startkey: [filter.uuid, filter.userid ],
-        endkey: [filter.uuid, filter.userid, {}]
+        startkey: keys.startkey,
+        endkey: keys.endkey
       }, function(err, body) {
         console.log( body || err );
         if (!err) {
@@ -90,14 +88,12 @@ function Models(orm) {
       if (req.params.uuid) {
         filter.uuid = req.params.uuid;
       }
-      if (req.params.startDate || req.params.endDate) {
-        filter.createdAt = { between: [req.params.startDate, req.params.endDate] }
-      }
+      var keys = parseDates( [filter.uuid ], req.params );
       db.view('traffic', 'byUser', {
         reduce: true,
         group_level: 2,
-        startkey: [filter.uuid ],
-        endkey: [filter.uuid, {}]
+        startkey: keys.startkey,
+        endkey: keys.endkey
       }, function(err, body) {
         if (!err) {
           var plays = {};
@@ -134,11 +130,12 @@ function Models(orm) {
     },
 
     watchesByUser: function(req, res) {
+      var keys = parseDates( [req.params.uuid,req.params.userid], req.params );
       db.view('watches', 'byUser', {
         reduce: true,
         group_level: 4,
-        startkey: [req.params.uuid,req.params.userid],
-        endkey: [req.params.uuid, req.params.userid, {}]
+        startkey: keys.startkey,
+        endkey: keys.endkey
       }, function(err, body) {
         console.log( body || err );
         if (!err) {
@@ -151,11 +148,12 @@ function Models(orm) {
     },
 
     watchesByUUID: function(req, res) {
+      var keys = parseDates( [req.params.uuid], req.params );
       db.view('watches', 'byUUID', {
         reduce: true,
         group_level: 4,
-        startkey: [req.params.uuid],
-        endkey: [req.params.uuid, {}]
+        startkey: keys.startkey,
+        endkey: keys.endkey
       }, function(err, body) {
         console.log( body || err );
         if (!err) {
@@ -172,11 +170,12 @@ function Models(orm) {
       accessLog.findByPath(req.params, function (err, list) {
         return res.json({ok: true, results: list });
       });*/
+      var keys = parseDates( [req.params.uuid], req.params );
       usage_db.view('usage', 'byUUID', {
         reduce: true,
         group_level: 4,
-        startkey: [req.params.uuid],
-        endkey: [req.params.uuid, {}]
+        startkey: keys.startkey,
+        endkey: keys.endkey
       }, function(err, body) {
         console.log( body || err );
         if (!err) {
@@ -189,11 +188,12 @@ function Models(orm) {
     },
 
     trafficByIp: function(req, res) {
+      var keys = parseDates( [req.params.ip], req.params );
       usage_db.view('usage', 'byIP', {
         reduce: true,
         group_level: 4,
-        startkey: [req.params.ip],
-        endkey: [req.params.ip, {}]
+        startkey: keys.startkey,
+        endkey: keys.endkey
       }, function(err, body) {
         console.log( body || err );
         if (!err) {
@@ -209,6 +209,19 @@ function Models(orm) {
 
 var getClientAddress = function (req) {
   return (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
+};
+
+var parseDates = function( baseKey, params ) {
+  var filter = {};
+  if (params.startDate) {
+    var start = new Date( params.startDate );
+    filter.startkey = baseKey.concat( [start.getFullYear(), start.getMonth()+1, start.getDate()] );
+  }
+  if (params.endDate) {
+    var end = new Date( params.endDate );
+    filter.endkey = baseKey.slice().concat( [end.getFullYear(), end.getMonth()+1, end.getDate(), {} ] );
+  }
+  return filter;
 };
 
 module.exports = Models;
