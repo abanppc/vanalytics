@@ -31,8 +31,8 @@
 DESC="Aban PPC"
 NAME="OVP Analytics"
 DIR=$(dirname "$(dirname "$(readlink -f "$0")")")
-SCRIPT_NAME="server"
-SCRIPT_FILE="server.js"
+SCRIPT_NAME="vanalytics"
+SCRIPT_FILE="vanalytics.js"
 ALL_SCRIPT="daemon all"
 FOREVER_DIR="${DIR}/bin/run/forever"
 LOGDIR="${DIR}/bin/run/logs"

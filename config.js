@@ -3,6 +3,11 @@ module.exports = {
   server_port: process.env.VANALYTICS_PORT || 3000,
   app_path   : process.env.VANALYTICS_PATH || '/analytics',
 
+  sysCouchLog: {
+    port: process.env.SYSCOUCHLOG_PORT || 1514,
+    filter_mime_types: [ 'mp4', 'flv', 'webm', 'ts' ]
+  },
+
   host    : process.env.VANALYTICS_MYSQL_DB_HOST || "127.0.0.1",
   database: process.env.VANALYTICS_MYSQL_DB || "vanalytics",
   username: process.env.VANALYTICS_MYSQL_DB_USERNAME || "aban",

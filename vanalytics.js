@@ -63,11 +63,16 @@ if( cluster.isMaster ) {
         cluster.fork();
     }
 } else {
-    process.on( 'uncaughtException', function(err){
-        console.error( err );
-    });
+
+    require( './sysCouchLog' );
 
     app.listen(app.get('port'), function () {
-        console.log('Running on port: ', app.get('port'));
+        console.log( '=========================================' );
+        console.log( 'Listening for Analytics on ', app.get('port') );
+        console.log( '=========================================' );
+    });
+
+    process.on( 'uncaughtException', function(err){
+        console.error( err );
     });
 }

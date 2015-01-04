@@ -11,10 +11,10 @@
   },
   "scripts": {
     "postinstall": "sudo npm install -g forever",
-    "start": "forever start server.js"
+    "start": "forever start vanalytics.js"
   },
   "bin": {
     "vanalytics": "./bin/vanalytics"
   },
-  "main": "server.js"
+  "main": "vanalytics.js"
 }
